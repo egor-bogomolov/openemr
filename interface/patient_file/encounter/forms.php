@@ -595,10 +595,11 @@ if ( $esign->isButtonViewable() ) {
         }
         else {
           // Skip non-LBF forms that we are not authorized to see.
-          if (($auth_notes_a) ||
-              ($auth_notes && $iter['user'] == $_SESSION['authUser']) ||
-              ($auth_relaxed && ($formdir == 'sports_fitness' || $formdir == 'podiatry'))) ;
-          else continue;
+          $tmp = getRegistryEntryByDirectory($formdir, 'aco_spec');
+          if (!empty($tmp['aco_spec'])) {
+            $tmp = explode('|', $tmp['aco_spec']);
+            if (!acl_check($tmp[0], $tmp[1])) continue;
+          }
         }
 
         // $form_info = getFormInfoById($iter['id']);

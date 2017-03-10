@@ -268,7 +268,15 @@ CREATE TABLE `form_therapy_groups_attendance` (
 ) ENGINE=InnoDB ;
 #EndIf
 
-
 #IfNotRow2D list_options list_id lists option_id files_white_list
 INSERT INTO list_options (`list_id`, `option_id`, `title`) VALUES ('lists', 'files_white_list', 'Files type white list');
+#EndIf
+
+#IfMissingColumn registry aco_spec
+ALTER TABLE `registry` ADD `aco_spec` varchar(63) NOT NULL default 'encounters|notes';
+UPDATE `registry` SET `aco_spec` = 'patients|appt'     WHERE directory = 'newpatient';
+UPDATE `registry` SET `aco_spec` = 'patients|appt'     WHERE directory = 'newGroupEncounter';
+UPDATE `registry` SET `aco_spec` = 'encounters|coding' WHERE directory = 'fee_sheet';
+UPDATE `registry` SET `aco_spec` = 'encounters|coding' WHERE directory = 'misc_billing_options';
+UPDATE `registry` SET `aco_spec` = 'patients|lab'      WHERE directory = 'procedure_order';
 #EndIf
