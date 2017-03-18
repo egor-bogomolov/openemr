@@ -2607,6 +2607,7 @@ CREATE TABLE `issue_types` (
     `style` smallint(6) NOT NULL DEFAULT '0',
     `force_show` smallint(6) NOT NULL DEFAULT '0',
     `ordering` int(11) NOT NULL DEFAULT '0',
+    `aco_spec` varchar(63) NOT NULL default 'patients|med',
     PRIMARY KEY (`category`,`type`)
 ) ENGINE=InnoDB;
 

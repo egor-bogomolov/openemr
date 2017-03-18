@@ -879,4 +879,19 @@
     }
     return false;
   }
+
+  // Permissions check for a specified issue type.
+  // Note $return_value may be an array of return values.
+  //
+  function acl_check_issue($type, $user='', $return_value='') {
+    require_once(dirname(__FILE__) . '/lists.inc');
+    global $ISSUE_TYPES;
+    if (empty($ISSUE_TYPES[$type][5])) return true;
+    $tmp = explode('|', $ISSUE_TYPES[$type][5]);
+    if (!is_array($return_value)) $return_value = array($return_value);
+    foreach ($return_value as $rv) {
+      if (acl_check($tmp[0], $tmp[1], $user, $rv)) return true;
+    }
+    return false;
+  }
 ?>
