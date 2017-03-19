@@ -422,3 +422,7 @@ ALTER TABLE `lbf_data` CHANGE `field_value` `field_value` longtext NOT NULL;
 #IfMissingColumn issue_types aco_spec
 ALTER TABLE `issue_types` ADD `aco_spec` varchar(63) NOT NULL default 'patients|med';
 #EndIf
+
+#IfMissingColumn categories aco_spec
+ALTER TABLE `categories` ADD `aco_spec` varchar(63) NOT NULL default 'patients|docs';
+#EndIf

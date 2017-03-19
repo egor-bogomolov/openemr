@@ -840,6 +840,8 @@
   // The caller inserts this between <select> and </select> tags.
   //
   function gen_aco_html_options($default='') {
+    global $phpgacl_location;
+    require_once("$phpgacl_location/gacl_api.class.php");
     $s = '';
     $gacl = new gacl_api();
     // collect and sort all aco objects
