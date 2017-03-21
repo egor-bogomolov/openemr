@@ -241,7 +241,8 @@ class Tree {
 	*/
 	function edit_node($id, $name, $value="", $aco_spec="patients|docs") {
     $sql = "SELECT c2.id FROM " . $this->_table . " AS c1, " . $this->_table . " AS c2 WHERE " .
-      "c1.id = $id AND c2.id != c1.id AND c2.parent = c1.parent AND c2.name = c1.name";
+      "c1.id = $id AND c2.id != c1.id AND c2.parent = c1.parent AND c2.name = '" .
+      add_escape_custom($name) . "'";
     $result = $this->_db->Execute($sql) or die(xlt('Error') . ": " . $this->_db->ErrorMsg());
     if ($result && !$result->EOF) {
       die(xlt('This name already exists under this parent.') . "<br>");
